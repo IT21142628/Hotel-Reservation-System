@@ -1,0 +1,48 @@
+package co.contacts;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+
+public class ContactDBUtil {
+
+	public static boolean insertcontact(String name,String phone,String email,String message) {
+		
+		boolean isSuccess = false;
+		
+		//create db connection
+		
+		String url="jdbc:mysql://localhost:3306/payment_hotel";
+		String user="root";
+	    String pass="1234";
+	    
+	    try {
+	    	Class.forName("com.mysql.jdbc.Driver");
+	    	
+	    	Connection con = DriverManager.getConnection(url, user, pass);
+	    	Statement st = con.createStatement();
+	    	String sql = "insert into contact_us values (0, '"+name+"','"+phone+"', '"+email+"','"+message+"')";
+	    	int res = st.executeUpdate(sql);
+	    	
+	    	//checking whether the db connection success or not
+	    	
+	    	if(res > 0) {
+	    		isSuccess = true;
+	    	}else {
+	    		isSuccess= false;
+	    	}
+	    	
+	    	
+	    }
+	    catch(Exception e){
+	    	e.printStackTrace();
+	    }
+	    
+	return isSuccess;
+			
+	}
+	
+}
+
+
